@@ -224,6 +224,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
+
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCRASUu5amajWJbgmS7x48Z10x5jCVHM2w",
@@ -242,16 +243,21 @@
 
         const dbRealtime = firebase.database();
 
-        function sincronizarMockEnTiempoReal() {
-            const appData = localStorage.getItem('mockMarksDB');
-            if (!appData) return;
-
-            dbRealtime.ref('mock_marks_data').set(JSON.parse(appData), (error) => {
-                if (error) {
-                    console.error("Error al sincronizar:", error);
+        // Al abrir la página, descargamos automáticamente los datos de Firebase si los hay
+        window.addEventListener('DOMContentLoaded', () => {
+            dbRealtime.ref('mock_marks_data').once('value', (snapshot) => {
+                const cloudData = snapshot.val();
+                if (cloudData) {
+                    localStorage.setItem('mockMarksDB', JSON.stringify(cloudData));
+                    // Si tu app tiene una función para recargar la pantalla, se llamará aquí
+                    if (typeof cargarDatosEnPantalla === 'function') {
+                        cargarDatosEnPantalla();
+                    } else {
+                        location.reload(); // Recarga la página para mostrar los datos bajados
+                    }
                 }
             });
-        }
+        });
 
         window.syncToCloud = function() {
             const appData = localStorage.getItem('mockMarksDB');
@@ -268,6 +274,7 @@
                 }
             });
         };
+    </script>
   
     </script>
 
