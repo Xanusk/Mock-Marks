@@ -59,7 +59,9 @@
                 <button onclick="syncToCloud()" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md shadow-indigo-200 transition-all transform hover:scale-105">
                     ☁️ Sincronizar
                 </button>
-<button class="btn btn-outline" onclick="descargarDeLaNube()">📥 Cargar de la Nube</button>
+                <button onclick="descargarDeLaNube()" class="flex items-center gap-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm">
+                    📥 Cargar de la Nube
+                </button>
             </div>
         </header>
 
@@ -223,7 +225,8 @@
         </div>
     </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <!-- FIREBASE SCRIPTS Y CONFIGURACIÓN -->
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
 
     <script>
@@ -275,6 +278,7 @@
             });
         };
     </script>   
+
     <!-- SCRIPT DE LÓGICA Y DATOS LOCALES -->
     <script>
         const DIVISORS = { read: 41, write: 40, uoe: 30, list: 30 };
