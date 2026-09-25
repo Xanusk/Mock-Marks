@@ -55,6 +55,9 @@
                 <button onclick="openManager()" class="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 hover:bg-indigo-100 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm">
                     👥 Gestión de Clases
                 </button>
+                <button onclick="exportToExcel()" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md shadow-green-200 transition-all">
+                    Excel
+                </button>
                 <div class="w-px h-8 bg-slate-200 mx-1 hidden sm:block"></div>
                 <button onclick="syncToCloud()" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md shadow-indigo-200 transition-all transform hover:scale-105">
                     ☁️ Sincronizar
@@ -760,6 +763,33 @@
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         
         document.addEventListener("DOMContentLoaded", initApp);
+  // Función para exportar la tabla actual a Excel
+        window.exportToExcel = function() {
+            const table = document.getElementById('trackerTable');
+            if (!table) return;
+
+            // Extraemos el contenido HTML de la tabla
+            const html = table.outerHTML;
+            
+            // Creamos un blob con formato Excel corporativo básico
+            const blob = new Blob(['\ufeff' + html], {
+                type: 'application/vnd.ms-excel'
+            });
+
+            // Generamos un nombre dinámico para el archivo basado en la fecha y grupo actual
+            const fecha = document.getElementById('mockDate').value || 'mock';
+            const grupo = document.getElementById('groupFilter').value || 'general';
+            const filename = `Mock_${grupo}_${fecha}.xls`;
+
+            // Creamos un enlace temporal para forzar la descarga
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = filename;
+            
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
     </script>
 </body>
 </html>
