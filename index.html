@@ -50,9 +50,7 @@
                 </h1>
                 <p class="text-xs text-slate-400 font-semibold tracking-widest uppercase mt-1">created by Ana Martínez Fuentes</p>
             </div>
-            <button onclick="exportToExcel()" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md shadow-green-200 transition-all">
-                    Excel
-                </button>
+            
             <div class="flex flex-wrap items-center gap-3">
                 <button onclick="openManager()" class="flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 hover:bg-indigo-100 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm">
                     👥 Gestión de Clases
@@ -762,33 +760,6 @@
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         
         document.addEventListener("DOMContentLoaded", initApp);
-// Función para exportar la tabla actual a Excel
-        window.exportToExcel = function() {
-            const table = document.getElementById('trackerTable');
-            if (!table) return;
-
-            // Extraemos el contenido HTML de la tabla
-            const html = table.outerHTML;
-            
-            // Creamos un blob con formato Excel corporativo básico
-            const blob = new Blob(['\ufeff' + html], {
-                type: 'application/vnd.ms-excel'
-            });
-
-            // Generamos un nombre dinámico para el archivo basado en la fecha y grupo actual
-            const fecha = document.getElementById('mockDate').value || 'mock';
-            const grupo = document.getElementById('groupFilter').value || 'general';
-            const filename = `Mock_${grupo}_${fecha}.xls`;
-
-            // Creamos un enlace temporal para forzar la descarga
-            const downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = filename;
-            
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        }   
- </script>
+    </script>
 </body>
 </html>
